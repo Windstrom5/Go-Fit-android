@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/your_primary_color</item>
+        <item name="colorPrimaryDark">@color/your_primary_dark_color</item>
+        <item name="colorAccent">@color/your_accent_color</item>
+        <item name="android:textColorPrimary">@color/your_text_color_primary</item>
+        <item name="android:textColorSecondary">@color/your_text_color_secondary</item>
+        <item name="android:fontFamily">@font/hacked</item>
+        <!-- ... and so on ... -->
+    </style>
+</resources>
