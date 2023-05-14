@@ -11,6 +11,7 @@ import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.go_fit.api.MemberApi
 import com.example.go_fit.databinding.ActivityProfileMemberBinding
 import com.google.gson.Gson
@@ -36,6 +37,7 @@ class ProfileMemberActivity : AppCompatActivity() {
         binding = ActivityProfileMemberBinding.inflate(layoutInflater)
         setContentView(binding.root)
         loading = findViewById(R.id.layout_loading)
+        queue= Volley.newRequestQueue(this)
         getBundle()
         setValue(vuser,vpass)
     }
@@ -79,6 +81,7 @@ class ProfileMemberActivity : AppCompatActivity() {
                 kelas.setText(valuekelas)
                 emailview.setText(emaildata)
                 phonenum.setText(no_telp)
+                setLoading(false)
                 println("nama: $nama")
             },
             Response.ErrorListener { error ->

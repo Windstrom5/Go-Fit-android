@@ -238,7 +238,12 @@ class HomeMemberActivity : AppCompatActivity(),NavigationView.OnNavigationItemSe
                 })
                 .show()
         }else if(item.itemId == R.id.menuProfile){
-
+            val intent = Intent(this,ProfileMemberActivity::class.java)
+            val mBundle = Bundle()
+            mBundle.putString("username",vuser)
+            mBundle.putString("password",vpass)
+            intent.putExtra("profile",mBundle)
+            startActivity(intent)
         }else if(item.itemId == R.id.menuGym){
 
         }else if(item.itemId == R.id.menuKelas){
