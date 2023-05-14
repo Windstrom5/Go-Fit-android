@@ -66,6 +66,7 @@ class HomeMemberActivity : AppCompatActivity(),NavigationView.OnNavigationItemSe
         navigationView = findViewById(R.id.nav_view)
         getBundle()
         getName(vuser,vpass)
+        setValue(vuser,vpass)
         toolbar.setNavigationOnClickListener(){
             drawer =findViewById(R.id.drawer_layout)
             navigationView.setNavigationItemSelectedListener(this)
@@ -117,8 +118,6 @@ class HomeMemberActivity : AppCompatActivity(),NavigationView.OnNavigationItemSe
                     Response.Listener { response ->
                         val gson2 = Gson()
                         val jsonObject2 = JSONObject(response)
-
-
                         // Check if role is Manajer Operasional
                         val data2 = jsonObject2.optJSONObject("data")
                         val total_deposit = data2?.optString("total_deposit")
@@ -322,6 +321,12 @@ class HomeMemberActivity : AppCompatActivity(),NavigationView.OnNavigationItemSe
                     }
                 })
                 .show()
+        }else if(item.itemId == R.id.menuProfile){
+
+        }else if(item.itemId == R.id.menuGym){
+
+        }else if(item.itemId == R.id.menuKelas){
+
         }
         drawer.closeDrawer(GravityCompat.START)
         return true

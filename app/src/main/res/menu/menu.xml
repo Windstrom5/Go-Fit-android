@@ -18,6 +18,16 @@
         android:title="Class Scheadule"/>
 
     <item
+        android:id="@+id/historyclass"
+        android:icon="@drawable/history"
+        android:title="Class History"/>
+
+    <item
+        android:id="@+id/transaction"
+        android:icon="@drawable/transactionhistory"
+        android:title="Transaction History"/>
+
+    <item
         android:id="@+id/menulogout"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_exit_to_app_24"

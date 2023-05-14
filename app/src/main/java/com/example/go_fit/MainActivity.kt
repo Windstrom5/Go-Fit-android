@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
+import androidx.core.view.isGone
 import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     private lateinit var passLayout : TextInputLayout
     private lateinit var login : Button
     private lateinit var user : EditText
+    private lateinit var forgot : TextView
     private lateinit var pass : EditText
     private lateinit var loading : LinearLayout
     private var queue: RequestQueue? = null
@@ -57,6 +59,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         idLayout.visibility = View.GONE
         passLayout.visibility = View.GONE
         login = binding.loginButton
+        forgot = binding.forgot
         login.visibility = View.GONE
         user = binding.user
         pass = binding.pass
@@ -69,6 +72,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                 idLayout.visibility = View.VISIBLE
                 passLayout.visibility = View.VISIBLE
                 login.visibility = View.VISIBLE
+                forgot.visibility = View.GONE
                 idLayout.setHint("Id Member")
                 user.setHint("Id Member")
                 passLayout.setStartIconDrawable(R.drawable.ic_baseline_calendar_month_24)
@@ -82,6 +86,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                 idLayout.visibility = View.VISIBLE
                 passLayout.visibility = View.VISIBLE
                 login.visibility = View.VISIBLE
+                forgot.visibility = View.VISIBLE
                 idLayout.setHint("Email Pegawai")
                 user.setHint("Email Pegawai")
                 passLayout.setStartIconDrawable(R.drawable.ic_baseline_lock_24)
@@ -93,6 +98,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                 idLayout.visibility = View.VISIBLE
                 passLayout.visibility = View.VISIBLE
                 login.visibility = View.VISIBLE
+                forgot.visibility = View.VISIBLE
                 idLayout.setHint("Email Instruktur")
                 user.setHint("Email Instruktur")
                 passLayout.setStartIconDrawable(R.drawable.ic_baseline_lock_24)
@@ -104,6 +110,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                 idLayout.visibility = View.GONE
                 passLayout.visibility = View.GONE
                 login.visibility = View.VISIBLE
+                forgot.visibility = View.GONE
                 login.setText("Enter")
             }
         }
