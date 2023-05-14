@@ -111,97 +111,13 @@ class HomeMemberActivity : AppCompatActivity(),NavigationView.OnNavigationItemSe
                 val nama = data?.optString("nama_member")
                 name = binding.textView
                 name.setText(nama)
+                val valueuang = data?.optString("deposit_uang")
+                val valuekelas = data?.optString("deposit_kelas")
+                value1 = binding.value1
+                value2 = binding.value2
+                value1.setText(valueuang)
+                value2.setText(valuekelas)
                 println("nama: $nama")
-                val StringRequest2: StringRequest = object : StringRequest(
-                    Method.GET,
-                    deposituangApi.GET_BY_USERNAME + nama,
-                    Response.Listener { response ->
-                        val gson2 = Gson()
-                        val jsonObject2 = JSONObject(response)
-                        // Check if role is Manajer Operasional
-                        val data2 = jsonObject2.optJSONObject("data")
-                        val total_deposit = data2?.optString("total_deposit")
-                        value1 = binding.value1
-                        value1.setText(total_deposit)
-                        println("nama: $nama")
-                    },
-                    Response.ErrorListener { error ->
-                        setLoading(false)
-                        try {
-                            val responseBody =
-                                String(error.networkResponse.data, StandardCharsets.UTF_8)
-                            val errors = JSONObject(responseBody)
-                            Toast.makeText(
-                                this@HomeMemberActivity,
-                                "Akun Belum Terdaftar",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        } catch (e: Exception) {
-                            Toast.makeText(this@HomeMemberActivity, e.message, Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                ) {
-                    @Throws(AuthFailureError::class)
-                    override fun getHeaders(): Map<String, String> {
-                        val headers = HashMap<String, String>()
-                        headers["Accept"] = "application/json"
-                        return headers
-                    }
-
-                    override fun getParams(): Map<String, String> {
-                        val params = HashMap<String, String>()
-                        params["username"] = vuser
-                        params["password"] = vpass
-                        return params
-                    }
-                }
-                queue!!.add(StringRequest2)
-                val StringRequest3: StringRequest = object : StringRequest(
-                    Method.GET,
-                    depositkelasApi.GET_BY_USERNAME + nama,
-                    Response.Listener { response ->
-                        val gson2 = Gson()
-                        val jsonObject2 = JSONObject(response)
-
-
-                        // Check if role is Manajer Operasional
-                        val data3 = jsonObject2.optJSONObject("data")
-                        val total_deposit = data3?.optString("total_deposit")
-                        value2 = binding.value2
-                        value2.setText(total_deposit)
-                        println("nama: $nama")
-                    },
-                    Response.ErrorListener { error ->
-                        setLoading(false)
-                        try {
-                            val responseBody =
-                                String(error.networkResponse.data, StandardCharsets.UTF_8)
-                            val errors = JSONObject(responseBody)
-                            Toast.makeText(
-                                this@HomeMemberActivity,
-                                "Akun Belum Terdaftar",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        } catch (e: Exception) {
-                            Toast.makeText(this@HomeMemberActivity, e.message, Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                ) {
-                    @Throws(AuthFailureError::class)
-                    override fun getHeaders(): Map<String, String> {
-                        val headers = HashMap<String, String>()
-                        headers["Accept"] = "application/json"
-                        return headers
-                    }
-
-                    override fun getParams(): Map<String, String> {
-                        val params = HashMap<String, String>()
-                        params["username"] = vuser
-                        params["password"] = vpass
-                        return params
-                    }
-                }
-                queue!!.add(StringRequest3)
             },
             Response.ErrorListener { error ->
                 setLoading(false)

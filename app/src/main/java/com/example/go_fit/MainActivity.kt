@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                 passLayout.visibility = View.VISIBLE
                 login.visibility = View.VISIBLE
                 forgot.visibility = View.GONE
-                idLayout.setHint("Id Member")
+                idLayout.setHint("Email Member")
                 user.setHint("Id Member")
                 passLayout.setStartIconDrawable(R.drawable.ic_baseline_calendar_month_24)
                 passLayout.setStartIconOnClickListener(View.OnClickListener {
