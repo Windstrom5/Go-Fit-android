@@ -32,6 +32,14 @@
         android:theme="@style/Theme.GoFit"
         tools:targetApi="31">
         <activity
+            android:name=".JadwalHarianActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ProfileMemberActivity"
             android:exported="false">
             <meta-data

@@ -62,6 +62,7 @@ class ProfileMemberActivity : AppCompatActivity() {
             MemberApi.GET_BY_USERNAME + email + "/" + pass + "/" + "get",
             Response.Listener { response ->
                 val gson = Gson()
+                setLoading(false)
                 val jsonObject = JSONObject(response)
                 // Check if role is Manajer Operasional
                 username = binding.username
@@ -81,7 +82,6 @@ class ProfileMemberActivity : AppCompatActivity() {
                 kelas.setText(valuekelas)
                 emailview.setText(emaildata)
                 phonenum.setText(no_telp)
-                setLoading(false)
                 println("nama: $nama")
             },
             Response.ErrorListener { error ->

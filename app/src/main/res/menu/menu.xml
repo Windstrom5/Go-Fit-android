@@ -10,12 +10,12 @@
     <item
         android:id="@+id/menuGym"
         android:icon="@drawable/gym"
-        android:title="Gym Scheadule"/>
+        android:title="Gym Schedule"/>
 
     <item
         android:id="@+id/menuKelas"
         android:icon="@drawable/kelas"
-        android:title="Class Scheadule"/>
+        android:title="Class Schedule"/>
 
     <item
         android:id="@+id/historyclass"

@@ -46,7 +46,6 @@ class HomeMemberActivity : AppCompatActivity(),NavigationView.OnNavigationItemSe
     private lateinit var name: TextView
     private lateinit var drawer : DrawerLayout
     private lateinit var toggle : ActionBarDrawerToggle
-    private lateinit var vjenis:String
     private lateinit var navigationView : NavigationView
     private lateinit var value1 : TextView
     private lateinit var value2 : TextView
@@ -247,10 +246,26 @@ class HomeMemberActivity : AppCompatActivity(),NavigationView.OnNavigationItemSe
         }else if(item.itemId == R.id.menuGym){
 
         }else if(item.itemId == R.id.menuKelas){
-
+            val intent = Intent(this,JadwalHarianActivity::class.java)
+            val mBundle = Bundle()
+            mBundle.putString("username",vuser)
+            mBundle.putString("password",vpass)
+            intent.putExtra("profile",mBundle)
+            startActivity(intent)
         }
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                drawer.openDrawer(GravityCompat.START)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }
 

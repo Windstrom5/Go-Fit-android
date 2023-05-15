@@ -1,38 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="16dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_margin="5dp"
+    android:background="@color/white"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="0dp"
+    app:contentPadding="4dp">
 
-    <TextView
-        android:id="@+id/course_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"/>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="right">
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="14sp"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:padding="16dp">
 
         <TextView
-            android:id="@+id/time"
+            android:id="@+id/name"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Class Name : "
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_namaKelas"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Nama Tempat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/name"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/day"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Day                :"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
+
+        <TextView
+            android:id="@+id/tv_namaHari"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Hari"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_namaKelas" />
+
+        <TextView
+            android:id="@+id/tgl"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Tanggal        :"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/day" />
+
+        <TextView
+            android:id="@+id/tv_tanggal"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Tanggal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/tgl"
+            app:layout_constraintTop_toBottomOf="@+id/tv_namaHari" />
+
+        <TextView
+            android:id="@+id/jam"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Jam               :"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tgl" />
+
+        <TextView
+            android:id="@+id/tv_jam"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Jam"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/jam"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tanggal" />
+        <TextView
+            android:id="@+id/instruktur"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Instruktur     :"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/jam" />
+        <TextView
+            android:id="@+id/tv_instruktur"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Instruktur"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/instruktur"
+            app:layout_constraintTop_toBottomOf="@+id/tv_jam" />
+
+
+        <TextView
+            android:id="@+id/seeMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="14sp"/>
-
-    </LinearLayout>
-
-</LinearLayout>
+            android:text="See More..."
+            android:textColor="@color/purple_700"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_instruktur"
+            app:layout_constraintVertical_bias="0.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
