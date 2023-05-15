@@ -181,6 +181,7 @@ class JadwalHarianActivity : AppCompatActivity(),NavigationView.OnNavigationItem
                 adapter = ScheduleAdapter(itemList,this)
                 recyclerView.layoutManager = LinearLayoutManager(this)
                 recyclerView.adapter= adapter
+                recyclerView.visibility = View.VISIBLE
                 if(!itemList.isEmpty()){
                     Toast.makeText(this@JadwalHarianActivity,"Data Berhasil Diambil", Toast.LENGTH_SHORT).show()
                 }else{

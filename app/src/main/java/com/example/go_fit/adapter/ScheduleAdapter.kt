@@ -23,6 +23,7 @@ import com.example.go_fit.model.jadwalharian
 import com.google.gson.Gson
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
+import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -59,12 +60,16 @@ class ScheduleAdapter(private var itemList: List<jadwalharian>, context: Context
         holder.tvKelas.text = item.nama_kelas
         holder.tvInstruktur.text = item.nama
         holder.tvHari.text = item.hari
-        println("status: ${item.nama_kelas}")
-        val jam = LocalTime.parse(item.jam, DateTimeFormatter.ofPattern("HH:mm"))
+        println("status: ${item.tanggal_kelas}")
+        val jam = LocalTime.parse(item.jam, DateTimeFormatter.ofPattern("HH:mm:ss"))
         val jamPlus2Hours = jam.plusHours(2)
         val jamFormatted = jam.format(DateTimeFormatter.ofPattern("HH:mm"))
         val jamPlus2HoursFormatted = jamPlus2Hours.format(DateTimeFormatter.ofPattern("HH:mm"))
         holder.tvJam.text = "$jamFormatted-$jamPlus2HoursFormatted"
+        val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale("id", "ID"))
+        val date = LocalDate.parse(item.tanggal_kelas)
+        val formattedDate = formatter.format(date)
+        holder.tvTanggal.text = formattedDate
     }
 
     override fun getFilter(): Filter {
