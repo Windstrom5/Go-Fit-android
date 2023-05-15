@@ -108,7 +108,6 @@ class ScheduleAdapter(private var itemList: List<jadwalharian>, context: Context
         var tvTanggal : TextView
         var tvHari : TextView
         var tvInstruktur : TextView
-        var btnMore : TextView
         var cvItem : CardView
 
         init {
@@ -117,7 +116,6 @@ class ScheduleAdapter(private var itemList: List<jadwalharian>, context: Context
             tvHari = itemView.findViewById(R.id.tv_namaHari)
             tvTanggal = itemView.findViewById(R.id.tv_tanggal)
             tvInstruktur = itemView.findViewById(R.id.tv_instruktur)
-            btnMore = itemView.findViewById(R.id.seeMore)
             cvItem = itemView.findViewById(R.id.card_view)
         }
     }
