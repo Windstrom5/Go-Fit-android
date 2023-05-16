@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         setLoading(true)
         if (jenis == "Pegawai") {
             val StringRequest: StringRequest = object : StringRequest(Method.GET,
-                PegawaiApi.GET_BY_USERNAME + username + "/" + password + "/" + "get",
+                PegawaiApi.GET_BY_USERNAME + username + "/" + password,
                 Response.Listener { response ->
                     val gson = Gson()
                     val jsonObject = JSONObject(response)
@@ -156,6 +156,12 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                     println("jabatan: $role")
                     if (role == "Manajer Operasional") {
                         // Continue to another page
+                        val intent = Intent(this,HomePegawaiActivity::class.java)
+                        val mBundle = Bundle()
+                        mBundle.putString("username",idLayout.getEditText()?.getText().toString())
+                        mBundle.putString("password",passLayout.getEditText()?.getText().toString())
+                        intent.putExtra("profile",mBundle)
+                        startActivity(intent)
                     } else {
                         // Show warning
                         Toast.makeText(

@@ -3,26 +3,20 @@ package com.example.go_fit.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
-import androidx.fragment.app.FragmentTransaction
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
-import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.go_fit.DetailsActivity
 import com.example.go_fit.R
 import com.example.go_fit.model.jadwalharian
-import com.google.gson.Gson
-import org.json.JSONObject
-import java.nio.charset.StandardCharsets
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -32,6 +26,8 @@ class ScheduleAdapter(private var itemList: List<jadwalharian>, context: Context
     RecyclerView.Adapter<ScheduleAdapter.ViewHolder>(), Filterable {
     private var filteredItemList: MutableList<jadwalharian>
     private val context:Context
+    private lateinit var vuser : String
+    private lateinit var vpass : String
     private var queue: RequestQueue? = null
 
     init {
@@ -70,6 +66,22 @@ class ScheduleAdapter(private var itemList: List<jadwalharian>, context: Context
         val date = LocalDate.parse(item.tanggal_kelas)
         val formattedDate = formatter.format(date)
         holder.tvTanggal.text = formattedDate
+        holder.cvItem.setOnClickListener(View.OnClickListener{
+            val hexColor = "#A020F0" // your hex color code
+            val color: Int = Color.parseColor(hexColor)
+            holder.cvItem.setCardBackgroundColor(color)
+            val intent = Intent(holder.cvItem.context, DetailsActivity::class.java)
+            val mBundle = Bundle()
+            mBundle.putString("username",vuser)
+            mBundle.putString("password",vpass)
+            mBundle.putString("kelas",item.nama_kelas)
+            mBundle.putString("instruktur",item.nama)
+            mBundle.putString("harga",item.tarif)
+            mBundle.putString("tanggal",item.tanggal_kelas)
+            mBundle.putString("jam",item.jam)
+            intent.putExtra("profile",mBundle)
+            holder.cvItem.context.startActivity(intent)
+        })
     }
 
     override fun getFilter(): Filter {
@@ -100,6 +112,11 @@ class ScheduleAdapter(private var itemList: List<jadwalharian>, context: Context
                 notifyDataSetChanged()
             }
         }
+    }
+
+    fun getVariable(user : String,pass : String){
+        vuser = user
+        vpass = pass
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){

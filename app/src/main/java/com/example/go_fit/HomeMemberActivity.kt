@@ -266,6 +266,21 @@ class HomeMemberActivity : AppCompatActivity(),NavigationView.OnNavigationItemSe
         }
         return super.onOptionsItemSelected(item)
     }
+    override fun onBackPressed() {
+        Log.d("CDA", "onBackPressed Called")
+        val builder: androidx.appcompat.app.AlertDialog.Builder = androidx.appcompat.app.AlertDialog.Builder(this@HomeMemberActivity)
+        builder.setMessage("Want to log out?")
+            .setNegativeButton("No", object : DialogInterface.OnClickListener {
+                override fun onClick(dialogInterface: DialogInterface, i: Int) {
 
+                }
+            })
+            .setPositiveButton("YES", object : DialogInterface.OnClickListener {
+                override fun onClick(dialogInterface: DialogInterface, i: Int) {
+                    startActivity(Intent(this@HomeMemberActivity, MainActivity::class.java))
+                }
+            })
+            .show()
+    }
 }
 

@@ -5,7 +5,8 @@ class jadwalharian(
     val jam: String,
     val nama: String,
     val nama_kelas: String,
-    val tanggal_kelas: String
+    val tanggal_kelas: String,
+    val tarif : String
 ){
     var id: Long? = null
 }
