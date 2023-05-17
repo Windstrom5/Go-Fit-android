@@ -50,21 +50,21 @@
 
     <Button
         android:id="@+id/buttonkelas"
-        android:layout_width="145dp"
-        android:layout_height="71dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="632dp"
+        android:layout_width="178dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="640dp"
         android:text="Pay with Deposit Kelas"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonuang"
-        android:layout_width="145dp"
-        android:layout_height="71dp"
-        android:layout_marginStart="236dp"
+        android:layout_width="178dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="232dp"
+        android:layout_marginTop="640dp"
         android:text="Pay with Deposit Uang"
-        android:layout_marginTop="632dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
