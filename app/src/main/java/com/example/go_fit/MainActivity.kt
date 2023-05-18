@@ -27,7 +27,7 @@ import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
+class MainActivity : AppCompatActivity(){
     private lateinit var binding: ActivityMainBinding
     private lateinit var idLayout : TextInputLayout
     private val calender = Calendar.getInstance()
@@ -75,12 +75,10 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                 forgot.visibility = View.GONE
                 idLayout.setHint("Email Member")
                 user.setHint("email Member")
-                passLayout.setStartIconDrawable(R.drawable.ic_baseline_calendar_month_24)
-                passLayout.setStartIconOnClickListener(View.OnClickListener {
-                    DatePickerDialog(this,this,calender.get(Calendar.YEAR),calender.get(Calendar.MONTH),calender.get(Calendar.DAY_OF_MONTH)).show()
-                })
-                pass!!.setFocusable(false)
-                pass.setHint("Tanggal Lahir")
+                passLayout.setStartIconDrawable(R.drawable.ic_baseline_lock_24)
+                passLayout!!.setFocusable(true)
+                passLayout.setStartIconOnClickListener(null)
+                pass.setHint("Password")
                 login.setText("Login")
             }else if(ed_jenis!!.text.toString() == "Pegawai"){
                 idLayout.visibility = View.VISIBLE
@@ -126,11 +124,11 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 //        ed_jenis.setText(adapterList.getItem(),false);
     }
 
-    override fun onDateSet(view: DatePicker?, year:Int, month:Int , dayofMonth : Int) {
-        Log.e("Calender","$year -- $month -- $dayofMonth")
-        calender.set(year, month, dayofMonth)
-        displayFormattedDate(calender.timeInMillis)
-    }
+//    override fun onDateSet(view: DatePicker?, year:Int, month:Int , dayofMonth : Int) {
+//        Log.e("Calender","$year -- $month -- $dayofMonth")
+//        calender.set(year, month, dayofMonth)
+//        displayFormattedDate(calender.timeInMillis)
+//    }
 
     private fun displayFormattedDate(timestamp: Long){
         val pattern = "yyyy-MM-dd" // Define your desired date format
@@ -269,6 +267,12 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                     val gson = Gson()
                     val jsonObject = JSONObject(response)
                     setLoading(false)
+                    val intent = Intent(this,HomeInstrukturActivity::class.java)
+                    val mBundle = Bundle()
+                    mBundle.putString("username",idLayout.getEditText()?.getText().toString())
+                    mBundle.putString("password",passLayout.getEditText()?.getText().toString())
+                    intent.putExtra("profile",mBundle)
+                    startActivity(intent)
                 },
                 Response.ErrorListener { error ->
                     setLoading(false)

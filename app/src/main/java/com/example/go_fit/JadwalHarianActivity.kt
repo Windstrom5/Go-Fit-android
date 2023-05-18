@@ -170,7 +170,7 @@ class JadwalHarianActivity : AppCompatActivity(),NavigationView.OnNavigationItem
         setLoading(true)
         val StringRequest: StringRequest = object : StringRequest(
             Method.GET,
-            jadwalharianApi.GET_BY_USERNAME + day,
+            jadwalharianApi.GET_BY_USERNAME +"apcb/"+ day,
             Response.Listener { response ->
                 val gson = Gson()
                 setLoading(false)

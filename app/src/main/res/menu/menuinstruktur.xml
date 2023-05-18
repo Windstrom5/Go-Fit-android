@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/menuProfile"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="Profile"/>
+
+    <item
+        android:id="@+id/menuPresensi"
+        android:icon="@drawable/gym"
+        android:title="Presensi Kelas"/>
+
+    <item
+        android:id="@+id/menuKelas"
+        android:icon="@drawable/kelas"
+        android:title="Jadwal Kelas"/>
+
+    <item
+        android:id="@+id/historyclass"
+        android:icon="@drawable/history"
+        android:title="Class History"/>
+
+    <item
+        android:id="@+id/transaction"
+        android:icon="@drawable/transactionhistory"
+        android:title="History Presensi"/>
+
+    <item
+        android:id="@+id/menulogout"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_exit_to_app_24"
+        android:title="Log Out"/>
+</menu>

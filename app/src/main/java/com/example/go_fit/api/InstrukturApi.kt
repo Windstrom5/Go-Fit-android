@@ -2,7 +2,7 @@ package com.example.go_fit.api
 
 class InstrukturApi {
     companion object{
-        val BASE_URL = "http://10.53.6.143/Server_Go_Fit/public/"
+        val BASE_URL = "http://192.168.1.6/Server_Go_Fit/public/"
 
         val GET_ALL_URL = BASE_URL + "instruktur"
         val GET_BY_USERNAME = BASE_URL + "instruktur/"

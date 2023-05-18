@@ -15,8 +15,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_width="402dp"
+        android:layout_height="wrap_content"
         android:padding="16dp">
 
         <TextView
@@ -90,6 +90,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/jam"
             app:layout_constraintTop_toBottomOf="@+id/tv_tanggal" />
+
         <TextView
             android:id="@+id/instruktur"
             android:layout_width="100dp"
@@ -97,6 +98,7 @@
             android:text="Instruktur     :"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/jam" />
+
         <TextView
             android:id="@+id/tv_instruktur"
             android:layout_width="200dp"
@@ -106,5 +108,23 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/instruktur"
             app:layout_constraintTop_toBottomOf="@+id/tv_jam" />
+
+        <TextView
+            android:id="@+id/sisa"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Sisa               :"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/instruktur" />
+
+        <TextView
+            android:id="@+id/tv_sisa"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="sisa"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/sisa"
+            app:layout_constraintTop_toBottomOf="@+id/tv_instruktur" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
