@@ -73,9 +73,20 @@
         android:layout_width="276dp"
         android:layout_height="45dp"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="80dp"
         android:text="Nama Kelas"
-        android:textSize="24sp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/kelas2"
+        android:layout_width="276dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="32dp"
+        android:text="Nama Kelas : "
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -84,9 +95,20 @@
         android:layout_width="276dp"
         android:layout_height="45dp"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="184dp"
+        android:layout_marginTop="208dp"
         android:text="Tanggal"
-        android:textSize="24sp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tanggal2"
+        android:layout_width="276dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="160dp"
+        android:text="Tanggal : "
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -95,9 +117,20 @@
         android:layout_width="276dp"
         android:layout_height="45dp"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="448dp"
+        android:layout_marginTop="468dp"
         android:text="Instruktur"
-        android:textSize="24sp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/instruktur2"
+        android:layout_width="276dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="420dp"
+        android:text="Instruktur : "
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -106,9 +139,20 @@
         android:layout_width="276dp"
         android:layout_height="45dp"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="316dp"
+        android:layout_marginTop="340dp"
         android:text="harga"
-        android:textSize="24sp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/harga2"
+        android:layout_width="276dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="292dp"
+        android:text="harga : "
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

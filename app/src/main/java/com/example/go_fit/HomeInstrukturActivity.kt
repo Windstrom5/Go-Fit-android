@@ -22,6 +22,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.go_fit.api.InstrukturApi
+import com.example.go_fit.api.MemberApi
 import com.example.go_fit.api.jadwalharianApi
 import com.example.go_fit.api.jadwalumumapi
 import com.example.go_fit.databinding.ActivityHomeInstrukturBinding
@@ -43,10 +44,12 @@ class HomeInstrukturActivity : AppCompatActivity(),NavigationView.OnNavigationIt
     private lateinit var name: TextView
     private lateinit var mbunlde : Bundle
     private lateinit var toolbar: Toolbar
+    private lateinit var jam :String
     private lateinit var textViewClasses : TextView
     private lateinit var textViewjmlhPeserta :TextView
     private lateinit var drawer : DrawerLayout
     private lateinit var toggle : ActionBarDrawerToggle
+    private lateinit var tanggal : String
     private var savedHari: String? = null
     private var queue: RequestQueue? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,6 +62,7 @@ class HomeInstrukturActivity : AppCompatActivity(),NavigationView.OnNavigationIt
         navigationView = findViewById(R.id.nav_view)
         getBundle()
         setValue(vuser,vpass)
+        getName(vuser,vpass)
         toolbar.setNavigationOnClickListener(){
             drawer =findViewById(R.id.drawer_layout)
             navigationView.setNavigationItemSelectedListener(this)
@@ -103,6 +107,63 @@ class HomeInstrukturActivity : AppCompatActivity(),NavigationView.OnNavigationIt
         }
     }
 
+    private fun getName(email:String,pass: String){
+        setLoading(true)
+        val StringRequest: StringRequest = object : StringRequest(
+            Method.GET,
+            InstrukturApi.GET_BY_USERNAME + email + "/" + pass + "/" + "get",
+            Response.Listener { response ->
+                val gson = Gson()
+                val jsonObject = JSONObject(response)
+                setLoading(false)
+
+                // Check if role is Manajer Operasional
+                val data = jsonObject.optJSONObject("data")
+                val nama = data?.optString("nama_member")
+                println("nama: $nama")
+                nama?.let { setUsername(navigationView, it) }
+            },
+            Response.ErrorListener { error ->
+                setLoading(false)
+                try {
+                    val responseBody =
+                        String(error.networkResponse.data, StandardCharsets.UTF_8)
+                    val errors = JSONObject(responseBody)
+                    Toast.makeText(
+                        this@HomeInstrukturActivity,
+                        "Akun Belum Terdaftar",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } catch (e: Exception) {
+                    Toast.makeText(this@HomeInstrukturActivity, e.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        ) {
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Accept"] = "application/json"
+                return headers
+            }
+
+            override fun getParams(): Map<String, String> {
+                val params = HashMap<String, String>()
+                params["username"] = vuser
+                params["password"] = vpass
+                return params
+            }
+        }
+        queue!!.add(StringRequest)
+    }
+
+    private fun setUsername(navigationView: NavigationView, username: String) {
+        println("status: $username")
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView = navigationView.getHeaderView(0)
+        val usernameTextView = headerView.findViewById<TextView>(R.id.username_show)
+        usernameTextView.text = username
+    }
+
     private fun setValue(email: String,pass: String){
         setLoading(true)
         val StringRequest: StringRequest = object : StringRequest(
@@ -127,8 +188,7 @@ class HomeInstrukturActivity : AppCompatActivity(),NavigationView.OnNavigationIt
             Response.ErrorListener { error ->
                 setLoading(false)
                 try {
-                    val responseBody =
-                        String(error.networkResponse.data, StandardCharsets.UTF_8)
+                    val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
                     Toast.makeText(
                         this@HomeInstrukturActivity,
@@ -212,7 +272,11 @@ class HomeInstrukturActivity : AppCompatActivity(),NavigationView.OnNavigationIt
                 val jsonObject = JSONObject(response)
                 val data = jsonObject.optJSONArray("data")
                 textViewClasses = binding.textViewClasses
-                val currentTime = Calendar.getInstance().time
+                val today = Calendar.getInstance()
+                today.set(Calendar.HOUR_OF_DAY, 0)
+                today.set(Calendar.MINUTE, 0)
+                today.set(Calendar.SECOND, 0)
+                val currentTime = today.time
                 var closestDate: Date? = null
                 var closestItem: JSONObject? = null
 
@@ -221,10 +285,11 @@ class HomeInstrukturActivity : AppCompatActivity(),NavigationView.OnNavigationIt
                     for (i in 0 until data.length()) {
                         val item = data.optJSONObject(i)
                         val tanggalKelas = item.optString("tanggal_kelas")
+                        jam = item.optString("jam")
+                        tanggal = tanggalKelas
                         val jam = item.optString("jam")
                         val dateTimeString = "$tanggalKelas $jam"
                         val dateTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(dateTimeString)
-
                         // Compare the date with the current time
                         if (dateTime != null && dateTime.after(currentTime) && (closestDate == null || dateTime.before(closestDate))) {
                             closestDate = dateTime
@@ -284,8 +349,10 @@ class HomeInstrukturActivity : AppCompatActivity(),NavigationView.OnNavigationIt
             Response.Listener { response ->
                 val gson = Gson()
                 val jsonObject = JSONObject(response)
+                println("nama: $jsonObject")
                 val data = jsonObject.optJSONObject("data")
                 val total = data?.optString("sisa_peserta")
+                println("nama: $total")
                 val jumlah = 10 - (total?.toIntOrNull() ?: 0)
                 textViewjmlhPeserta = binding.textViewjmlhPeserta
                 textViewjmlhPeserta.text = jumlah.toString()
@@ -350,10 +417,14 @@ class HomeInstrukturActivity : AppCompatActivity(),NavigationView.OnNavigationIt
         }else if(item.itemId == R.id.menuGym){
 
         }else if(item.itemId == R.id.menuPresensi){
+            val nama_kelas = textViewClasses.getText().toString()
             val intent = Intent(this,PresensiKelasActivity::class.java)
             val mBundle = Bundle()
             mBundle.putString("username",vuser)
             mBundle.putString("password",vpass)
+            mBundle.putString("kelas",nama_kelas)
+            mBundle.putString("tanggal",tanggal)
+            mBundle.putString("jam",jam)
             intent.putExtra("profile",mBundle)
             startActivity(intent)
         }
