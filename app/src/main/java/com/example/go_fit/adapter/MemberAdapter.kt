@@ -128,10 +128,17 @@ class MemberAdapter (private var itemList: List<member>, context: Context) :
                 // Make the string request and handle the response accordingly
 
             }else{
+                val presensiKelas = presensikelas(
+                    item.nama_member,
+                    vkelas,
+                    vtanggal,
+                    vjam,
+                    status
+                )
                 val StringRequest:StringRequest = object : StringRequest(Method.POST, presensikelasApi.ADD_URL,
                     Response.Listener { response ->
                         val gson = Gson()
-                        val presensi = gson.fromJson(response, presensikelas::class.java)
+                        val presensi = gson.fromJson(response, presensiKelas::class.java)
                         if(presensi != null)
                             Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
                     },Response.ErrorListener { error->

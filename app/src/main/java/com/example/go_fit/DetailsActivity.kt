@@ -62,17 +62,17 @@ class DetailsActivity : AppCompatActivity() {
         btnUang = binding.buttonuang
         btnKelas = binding.buttonkelas
         btnUang.setOnClickListener() {
-
+            paywithUang(vuser,vpass,vharga)
         }
         btnKelas.setOnClickListener(){
-            paywithpaket(vuser,vharga)
+            paywithpaket(vuser,vpass,vharga)
         }
     }
 
-    fun paywithUang(vuser: String,harga : String){
+    fun paywithUang(vuser: String,pass:String,harga : String){
         val StringRequest: StringRequest = object : StringRequest(
             Method.GET,
-            MemberApi.GET_BY_USERNAME + vuser,
+            MemberApi.GET_BY_USERNAME + vuser +"/"+pass,
             Response.Listener { response ->
                 val gson = Gson()
                 val jsonObject = JSONObject(response)
@@ -150,10 +150,10 @@ class DetailsActivity : AppCompatActivity() {
         queue!!.add(StringRequest)
     }
 
-    fun paywithpaket(vuser: String,harga : String){
+    fun paywithpaket(vuser: String,pass:String,harga : String){
         val StringRequest: StringRequest = object : StringRequest(
             Method.GET,
-            MemberApi.GET_BY_USERNAME + vuser,
+            MemberApi.GET_BY_USERNAME + vuser+"/"+pass,
             Response.Listener { response ->
                 val gson = Gson()
                 val jsonObject = JSONObject(response)
@@ -270,12 +270,19 @@ class DetailsActivity : AppCompatActivity() {
             vjam,
             jenis
         )
+        val bookingKelasJson = Gson().toJson(bookingKelas)
         val StringRequest:StringRequest = object : StringRequest(Method.POST, bookingkelasApi.ADD_URL,
             Response.Listener { response ->
                 val gson = Gson()
                 val booking = gson.fromJson(response, bookingkelas::class.java)
-                if(booking != null)
-                    Toast.makeText(this@DetailsActivity,"Booking Kelas Berhasil Ditambahkan", Toast.LENGTH_SHORT).show()
+                if (booking != null) {
+                    Toast.makeText(
+                        this@DetailsActivity,
+                        "Booking Kelas Berhasil Ditambahkan",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    finish()
+                }
                 setLoading(false)
             },Response.ErrorListener { error->
                 setLoading(false)
@@ -301,11 +308,12 @@ class DetailsActivity : AppCompatActivity() {
 
             override fun getParams(): Map<String, String>? {
                 val params = java.util.HashMap<String, String>()
-                params.put("nama_kelas",vkelas)
                 params.put("nama_member",nama)
+                params.put("nama_kelas",vkelas)
                 params.put("tanggal",vtanggal)
                 params.put("jam",vjam)
                 params.put("jenis",jenis)
+                println("jabatan: $params")
                 return params
             }
         }

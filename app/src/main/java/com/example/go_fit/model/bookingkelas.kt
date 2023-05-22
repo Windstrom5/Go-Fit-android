@@ -6,6 +6,4 @@ class bookingkelas (
     val tanggal: String,
     val jam: String,
     val jenis: String,
-){
-    var id: Long? = null
-}
+)

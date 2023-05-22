@@ -66,6 +66,7 @@ class ScheduleAdapter(private var itemList: List<jadwalharian>, context: Context
         val date = LocalDate.parse(item.tanggal_kelas)
         val formattedDate = formatter.format(date)
         holder.tvTanggal.text = formattedDate
+        holder.tvSisa.text = item.sisa_peserta
         holder.cvItem.setOnClickListener(View.OnClickListener{
             val hexColor = "#A020F0" // your hex color code
             val color: Int = Color.parseColor(hexColor)
@@ -126,7 +127,7 @@ class ScheduleAdapter(private var itemList: List<jadwalharian>, context: Context
         var tvHari : TextView
         var tvInstruktur : TextView
         var cvItem : CardView
-
+        var tvSisa : TextView
         init {
             tvKelas = itemView.findViewById(R.id.tv_namaKelas)
             tvJam = itemView.findViewById(R.id.tv_jam)
@@ -134,6 +135,7 @@ class ScheduleAdapter(private var itemList: List<jadwalharian>, context: Context
             tvTanggal = itemView.findViewById(R.id.tv_tanggal)
             tvInstruktur = itemView.findViewById(R.id.tv_instruktur)
             cvItem = itemView.findViewById(R.id.card_view)
+            tvSisa = itemView.findViewById(R.id.tv_sisa)
         }
     }
 }
