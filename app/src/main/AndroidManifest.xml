@@ -32,6 +32,13 @@
         android:theme="@style/Theme.GoFit"
         tools:targetApi="31">
         <activity
+            android:name=".BookingGymActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".PresensiKelasActivity"
             android:exported="false"
             android:theme="@style/AppTheme">

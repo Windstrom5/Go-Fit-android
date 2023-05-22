@@ -27,19 +27,6 @@
         android:layout_height="match_parent"
         android:focusable="true"
         android:focusableInTouchMode="true">
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="Title"
-            android:layout_margin="8dp"
-            android:fontFamily="@font/hacked"
-            android:textAlignment="center"
-            android:textSize="25dp"
-            android:textColor="@color/white"
-            />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/sr_item"
@@ -50,7 +37,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0">
 
             <androidx.recyclerview.widget.RecyclerView
