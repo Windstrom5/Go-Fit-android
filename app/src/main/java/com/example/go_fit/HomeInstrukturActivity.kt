@@ -285,8 +285,6 @@ class HomeInstrukturActivity : AppCompatActivity(),NavigationView.OnNavigationIt
                     for (i in 0 until data.length()) {
                         val item = data.optJSONObject(i)
                         val tanggalKelas = item.optString("tanggal_kelas")
-                        jam = item.optString("jam")
-                        tanggal = tanggalKelas
                         val jam = item.optString("jam")
                         val dateTimeString = "$tanggalKelas $jam"
                         val dateTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(dateTimeString)
@@ -303,9 +301,10 @@ class HomeInstrukturActivity : AppCompatActivity(),NavigationView.OnNavigationIt
                     val hari = closestItem.optString("hari")
                     val nama = closestItem.optString("nama")
                     val jam = closestItem.optString("jam")
+                    val tanggal = closestItem.optString("tanggal_kelas")
                     textViewClasses.text = namaKelas
-                    jumlahPeserta(nama, hari, jam)
-                    println("Closest item: $namaKelas")
+                    jumlahPeserta(nama, hari, jam,tanggal)
+                    println("Closest item: $closestItem")
                 }
                 println("nama: $nama")
             },
@@ -342,20 +341,29 @@ class HomeInstrukturActivity : AppCompatActivity(),NavigationView.OnNavigationIt
         queue!!.add(StringRequest)
     }
 
-    private fun jumlahPeserta(nama:String,hari:String,jam:String){
+    private fun jumlahPeserta(nama:String,hari:String,jam_kelas:String,tanggal_kelas:String){
         val StringRequest: StringRequest = object : StringRequest(
             Method.GET,
-            jadwalharianApi.GET_BY_USERNAME + nama + "/" + hari+"/"+jam,
+            jadwalharianApi.GET_BY_USERNAME + nama + "/" + hari+"/"+jam_kelas +"/"+tanggal_kelas,
             Response.Listener { response ->
                 val gson = Gson()
                 val jsonObject = JSONObject(response)
                 println("nama: $jsonObject")
-                val data = jsonObject.optJSONObject("data")
-                val total = data?.optString("sisa_peserta")
-                println("nama: $total")
-                val jumlah = 10 - (total?.toIntOrNull() ?: 0)
-                textViewjmlhPeserta = binding.textViewjmlhPeserta
-                textViewjmlhPeserta.text = jumlah.toString()
+                val response = JSONObject(response) // Convert the response string to JSONObject
+                val totalData = response.optInt("totaldata")
+                if (totalData > 0) {
+                    val dataArray = response.getJSONArray("data") // Get the data array from the response
+                    val data = dataArray.getJSONObject(0) // Get the first object from the data array
+                    val total = data.optString("sisa_peserta")
+                    tanggal = data.optString("tanggal_kelas")
+                    jam = data.optString("jam")
+                    println("total: $total")
+                    val jumlah = 10 - (total?.toIntOrNull() ?: 0)
+                    textViewjmlhPeserta = binding.textViewjmlhPeserta
+                    textViewjmlhPeserta.text = jumlah.toString()
+                } else {
+                    // Handle the case when no data is returned
+                }
                 println("nama: $nama")
                 setLoading(false)
             },

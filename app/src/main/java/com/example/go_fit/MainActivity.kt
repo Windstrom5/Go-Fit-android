@@ -147,7 +147,6 @@ class MainActivity : AppCompatActivity(){
                     val gson = Gson()
                     val jsonObject = JSONObject(response)
                     setLoading(false)
-
                     // Check if role is Manajer Operasional
                     val data = jsonObject.optJSONObject("data")
                     val role = data?.optString("jabatan")
@@ -262,7 +261,7 @@ class MainActivity : AppCompatActivity(){
             queue!!.add(StringRequest)
         }else if(jenis == "Instruktur"){
             val StringRequest: StringRequest = object : StringRequest(Method.GET,
-                InstrukturApi.GET_BY_USERNAME + username + "/" + password + "/" + "get",
+                InstrukturApi.GET_BY_USERNAME + username + "/" + password,
                 Response.Listener { response ->
                     val gson = Gson()
                     val jsonObject = JSONObject(response)

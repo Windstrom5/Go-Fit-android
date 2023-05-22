@@ -81,7 +81,7 @@ class PresensiKelasActivity : AppCompatActivity(),NavigationView.OnNavigationIte
         getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
         getBundle()
         getName(vuser,vpass)
-        loadMember(vkelas,vtanggal)
+        loadMember(vuser,vkelas,vtanggal)
     }
 
     fun setLoading(isLoading:Boolean){
@@ -97,12 +97,12 @@ class PresensiKelasActivity : AppCompatActivity(),NavigationView.OnNavigationIte
         }
     }
 
-    private fun loadMember(kelas: String,tanggal : String) {
+    private fun loadMember(email:String,kelas: String,tanggal : String) {
         // Show loading spinner
         setLoading(true)
         val StringRequest: StringRequest = object : StringRequest(
             Method.GET,
-            bookingkelasApi.GET_BY_USERNAME +"apcb/"+ kelas + tanggal,
+            bookingkelasApi.GET_BY_USERNAME +email+"/"+ kelas +"/"+ tanggal,
             Response.Listener { response ->
                 val gson = Gson()
                 setLoading(false)
