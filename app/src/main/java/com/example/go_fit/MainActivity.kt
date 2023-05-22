@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity(){
         passLayout.visibility = View.GONE
         login = binding.loginButton
         forgot = binding.forgot
+        forgot.visibility= View.GONE
         login.visibility = View.GONE
         user = binding.user
         pass = binding.pass
