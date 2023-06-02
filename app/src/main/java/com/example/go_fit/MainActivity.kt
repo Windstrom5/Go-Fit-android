@@ -1,20 +1,18 @@
 package com.example.go_fit
 
-import android.app.DatePickerDialog
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
-import androidx.core.view.isGone
 import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.go_fit.member.HomeMemberActivity
 import com.example.go_fit.api.InstrukturApi
 import com.example.go_fit.api.MemberApi
 import com.example.go_fit.api.PegawaiApi
@@ -43,8 +41,7 @@ class MainActivity : AppCompatActivity(){
         private val Login_LIST = arrayOf(
             "Member",
             "Pegawai",
-            "Instruktur",
-            "Umum"
+            "Instruktur"
         )
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,7 +90,7 @@ class MainActivity : AppCompatActivity(){
                 passLayout.setStartIconOnClickListener(null)
                 pass.setHint("Password")
                 login.setText("Login")
-            }else if(ed_jenis!!.text.toString() == "Instruktur"){
+            }else if(ed_jenis!!.text.toString() == "Instruktur") {
                 idLayout.visibility = View.VISIBLE
                 passLayout.visibility = View.VISIBLE
                 login.visibility = View.VISIBLE
@@ -105,12 +102,6 @@ class MainActivity : AppCompatActivity(){
                 passLayout.setStartIconOnClickListener(null)
                 pass.setHint("Password")
                 login.setText("Login")
-            }else{
-                idLayout.visibility = View.GONE
-                passLayout.visibility = View.GONE
-                login.visibility = View.VISIBLE
-                forgot.visibility = View.GONE
-                login.setText("Enter")
             }
         }
         login.setOnClickListener{
@@ -214,7 +205,7 @@ class MainActivity : AppCompatActivity(){
                     println("status: $role")
                     if (role == "active") {
                         // Continue to another page
-                        val intent = Intent(this,HomeMemberActivity::class.java)
+                        val intent = Intent(this, HomeMemberActivity::class.java)
                         val mBundle = Bundle()
                         mBundle.putString("username",idLayout.getEditText()?.getText().toString())
                         mBundle.putString("password",passLayout.getEditText()?.getText().toString())
@@ -305,6 +296,10 @@ class MainActivity : AppCompatActivity(){
                 }
             }
             queue!!.add(StringRequest)
+        }else{
+            setLoading(false)
+            val intent = Intent(this,JadwalHarianActivity::class.java)
+            startActivity(intent)
         }
     }
 

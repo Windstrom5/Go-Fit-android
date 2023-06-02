@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
@@ -71,7 +72,9 @@ class JadwalHarianActivity : AppCompatActivity(),NavigationView.OnNavigationItem
         drawer =findViewById(R.id.drawer_layout)
         navigationView = findViewById(R.id.nav_view)
         getBundle()
-        getName(vuser,vpass)
+        if(vuser != "null" && vpass != "null"){
+            getName(vuser,vpass)
+        }
         toolbar.setNavigationOnClickListener(){
             drawer =findViewById(R.id.drawer_layout)
             navigationView.setNavigationItemSelectedListener(this)
@@ -239,10 +242,15 @@ class JadwalHarianActivity : AppCompatActivity(),NavigationView.OnNavigationItem
             if(mbunlde != null){
                 vuser =mbunlde.getString("username")!!
                 vpass = mbunlde.getString("password")!!
-                println("jabatan: $vuser")
             }
         }catch(e: NullPointerException) {
-
+            vuser = null.toString()
+            vpass = null.toString()
+            val navigationView: NavigationView = findViewById(R.id.nav_view)
+            val menu: Menu = navigationView.menu
+            menu.clear()
+            navigationView.inflateMenu(R.menu.menudefault)
+            setUsername(navigationView, "Guest")
         }
     }
 
@@ -276,6 +284,9 @@ class JadwalHarianActivity : AppCompatActivity(),NavigationView.OnNavigationItem
             mBundle.putString("username",vuser)
             mBundle.putString("password",vpass)
             intent.putExtra("profile",mBundle)
+            startActivity(intent)
+        }else if (item.itemId == R.id.menuLogin) {
+            val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
         }
         drawer.closeDrawer(GravityCompat.START)

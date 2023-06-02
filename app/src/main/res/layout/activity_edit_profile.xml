@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:background="@drawable/bg2"
+    tools:context=".EditProfileActivity">
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/alamatInput"
+      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+      android:layout_width="match_parent"
+      android:layout_height="80dp"
+      android:elevation="2dp"
+      android:textColorHint="@color/dark_blue"
+      app:errorEnabled="true"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@+id/emailInput"
+      app:layout_constraintTop_toBottomOf="@+id/emailInput"
+      app:startIconDrawable="@drawable/ic_baseline_home_24">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/edit_alamat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="New Alamat" />
+  </com.google.android.material.textfield.TextInputLayout>
+
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/emailInput"
+      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+      android:layout_width="match_parent"
+      android:layout_height="80dp"
+      android:elevation="2dp"
+      android:textColorHint="@color/dark_blue"
+      app:errorEnabled="true"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:startIconDrawable="@drawable/ic_baseline_email_24">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/edit_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="New Email" />
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/phoneInput"
+      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+      android:layout_width="match_parent"
+      android:layout_height="80dp"
+      android:elevation="2dp"
+      android:textColorHint="@color/dark_blue"
+      app:errorEnabled="true"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@+id/emailInput"
+      app:layout_constraintTop_toBottomOf="@+id/alamatInput"
+      app:startIconDrawable="@drawable/ic_baseline_phone_24">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/edit_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="New Phone" />
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/tglInput"
+      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+      android:layout_width="match_parent"
+      android:layout_height="80dp"
+      android:elevation="2dp"
+      android:textColorHint="@color/dark_blue"
+      app:errorEnabled="true"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@+id/phoneInput"
+      app:layout_constraintTop_toBottomOf="@+id/phoneInput"
+      app:startIconDrawable="@drawable/ic_baseline_calendar_month_24">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/edit_tgl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="New Date of Birth"
+        android:focusable="false"
+        android:cursorVisible="false"/>
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <Button
+      android:id="@+id/button_update"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="SAVE"
+      android:textColor="@color/dark_blue"
+      android:backgroundTint="@color/green"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tglInput"
+      android:layout_marginTop="20dp"
+      />
+
+  <Button
+      android:id="@+id/button_cancel"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="CANCEL"
+      android:backgroundTint="@color/red"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/button_update"
+      android:layout_marginTop="20dp"
+      />
+  <include
+      android:id="@+id/layout_loading"
+      layout="@layout/layout_loading"
+      android:visibility="gone"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

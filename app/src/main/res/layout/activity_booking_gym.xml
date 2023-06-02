@@ -4,6 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BookingGymActivity">
+    tools:context=".member.BookingGymActivity"
+    android:background="@drawable/bg">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/Waktu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="358dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="148dp"
+        android:elevation="2dp"
+        app:boxBackgroundColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <AutoCompleteTextView
+            android:id="@+id/ed_waktu"
+            android:layout_width="358dp"
+            android:layout_height="49dp"
+            android:hint="Pick The Time"
+            android:textColor="@color/black"
+            android:inputType="none"
+            android:text="Select A Time"
+            tools:layout_editor_absoluteX="18dp"
+            tools:layout_editor_absoluteY="212dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="536dp"
+        android:text="Book Now"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

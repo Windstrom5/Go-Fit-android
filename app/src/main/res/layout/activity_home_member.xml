@@ -7,7 +7,7 @@
     android:background="@drawable/black"
     tools:openDrawer="start"
     android:id="@+id/drawer_layout"
-    tools:context=".HomeMemberActivity">
+    tools:context=".member.HomeMemberActivity">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

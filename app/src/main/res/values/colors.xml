@@ -17,4 +17,11 @@
     <color name="graylight">#fafafa</color>
     <color name="startblue">#09c6df</color>
     <color name="endblue">#0bcce6</color>
+    <color name="dark_red">#b90a27</color>
+    <color name="dark_blue">#1c0b7b</color>
+    <color name="baby_pink">#fb91cc</color>
+    <color name="yellow">#ffd300</color>
+    <color name="red">#da2543</color>
+    <color name="green">#09e126</color>
+    <color name="blue">#3c94c3</color>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.go_fit
+package com.example.go_fit.member
 
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -22,9 +22,12 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.go_fit.JadwalHarianActivity
+import com.example.go_fit.MainActivity
+import com.example.go_fit.ProfileMemberActivity
+import com.example.go_fit.R
 import com.example.go_fit.api.*
 import com.example.go_fit.databinding.ActivityHomeMemberBinding
-import com.example.go_fit.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_home_member.*
@@ -70,14 +73,16 @@ class HomeMemberActivity : AppCompatActivity(),NavigationView.OnNavigationItemSe
             drawer =findViewById(R.id.drawer_layout)
             navigationView.setNavigationItemSelectedListener(this)
             toggle = ActionBarDrawerToggle(this,drawer,toolbar,
-                R.string.navigation_drawer_open,R.string.navigation_drawer_close)
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            )
             drawer.addDrawerListener(toggle)
             toggle.syncState()
         }
         drawer =findViewById(R.id.drawer_layout)
         navigationView.setNavigationItemSelectedListener(this)
         toggle = ActionBarDrawerToggle(this,drawer,toolbar,
-            R.string.navigation_drawer_open,R.string.navigation_drawer_close)
+            R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        )
         drawer.addDrawerListener(toggle)
         toggle.syncState()
         setSupportActionBar(toolbar);
@@ -237,7 +242,7 @@ class HomeMemberActivity : AppCompatActivity(),NavigationView.OnNavigationItemSe
                 })
                 .show()
         }else if(item.itemId == R.id.menuProfile){
-            val intent = Intent(this,ProfileMemberActivity::class.java)
+            val intent = Intent(this, ProfileMemberActivity::class.java)
             val mBundle = Bundle()
             mBundle.putString("username",vuser)
             mBundle.putString("password",vpass)
@@ -246,7 +251,7 @@ class HomeMemberActivity : AppCompatActivity(),NavigationView.OnNavigationItemSe
         }else if(item.itemId == R.id.menuGym){
 
         }else if(item.itemId == R.id.menuKelas){
-            val intent = Intent(this,JadwalHarianActivity::class.java)
+            val intent = Intent(this, JadwalHarianActivity::class.java)
             val mBundle = Bundle()
             mBundle.putString("username",vuser)
             mBundle.putString("password",vpass)

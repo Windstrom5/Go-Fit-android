@@ -53,19 +53,24 @@ class DetailsActivity : AppCompatActivity() {
         harga = binding.harga
         tanggal = binding.tanggal
         loading = findViewById(R.id.layout_loading)
+        btnUang = binding.buttonuang
+        btnKelas = binding.buttonkelas
         getBundle()
-        getName(vuser,vpass)
         kelas.setText(vkelas)
         instruktur.setText(vinstruktur)
         harga.setText(vharga)
         tanggal.setText(vtanggal+'/'+vjam)
-        btnUang = binding.buttonuang
-        btnKelas = binding.buttonkelas
-        btnUang.setOnClickListener() {
-            paywithUang(vuser,vpass,vharga)
-        }
-        btnKelas.setOnClickListener(){
-            paywithpaket(vuser,vpass,vharga)
+        if(vuser != null.toString() && vpass != null.toString()){
+            getName(vuser,vpass)
+            btnUang.setOnClickListener() {
+                paywithUang(vuser,vpass,vharga)
+            }
+            btnKelas.setOnClickListener(){
+                paywithpaket(vuser,vpass,vharga)
+            }
+        }else {
+            btnUang.visibility =View.GONE
+            btnKelas.visibility = View.GONE
         }
     }
 
@@ -329,7 +334,6 @@ class DetailsActivity : AppCompatActivity() {
                 val gson = Gson()
                 val jsonObject = JSONObject(response)
                 setLoading(false)
-
                 // Check if role is Manajer Operasional
                 val data = jsonObject.optJSONObject("data")
                 nama = data.optString("nama_member")
