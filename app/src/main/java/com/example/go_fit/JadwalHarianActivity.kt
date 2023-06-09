@@ -106,7 +106,7 @@ class JadwalHarianActivity : AppCompatActivity(),NavigationView.OnNavigationItem
         })
     }
 
-    fun setLoading(isLoading:Boolean){
+    private fun setLoading(isLoading:Boolean){
         if(isLoading){
             window.setFlags(
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
@@ -236,7 +236,7 @@ class JadwalHarianActivity : AppCompatActivity(),NavigationView.OnNavigationItem
         usernameTextView.text = username
     }
 
-    fun getBundle(){
+    private fun getBundle(){
         try{
             mbunlde = intent?.getBundleExtra("profile")!!
             if(mbunlde != null){

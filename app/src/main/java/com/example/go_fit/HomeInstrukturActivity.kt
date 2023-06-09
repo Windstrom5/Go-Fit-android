@@ -81,7 +81,7 @@ class HomeInstrukturActivity : AppCompatActivity(),NavigationView.OnNavigationIt
         getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
     }
 
-    fun setLoading(isLoading:Boolean){
+    private fun setLoading(isLoading:Boolean){
         if(isLoading){
             window.setFlags(
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,

@@ -117,7 +117,7 @@ class ProfileMemberActivity : AppCompatActivity() {
         queue!!.add(StringRequest)
     }
 
-    fun getBundle(){
+    private fun getBundle(){
         try{
             mbunlde = intent?.getBundleExtra("profile")!!
             if(mbunlde != null){

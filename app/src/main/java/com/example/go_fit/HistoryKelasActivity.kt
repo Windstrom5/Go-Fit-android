@@ -153,7 +153,7 @@ class HistoryKelasActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         return super.onOptionsItemSelected(item)
     }
 
-    fun setLoading(isLoading:Boolean){
+    private fun setLoading(isLoading:Boolean){
         if(isLoading){
             window.setFlags(
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,

@@ -84,7 +84,7 @@ class PresensiKelasActivity : AppCompatActivity(),NavigationView.OnNavigationIte
         loadMember(vuser,vkelas,vtanggal)
     }
 
-    fun setLoading(isLoading:Boolean){
+    private fun setLoading(isLoading:Boolean){
         if(isLoading){
             window.setFlags(
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,

@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity(){
         }
     }
 
-    fun setExposeDropDownMenu() {
+    private fun setExposeDropDownMenu() {
         val adapterList: ArrayAdapter<String> =
             ArrayAdapter<String>(this, R.layout.item_list, Login_LIST)
         ed_jenis!!.setAdapter(adapterList)
@@ -303,7 +303,7 @@ class MainActivity : AppCompatActivity(){
         }
     }
 
-    fun setLoading(isLoading:Boolean){
+    private fun setLoading(isLoading:Boolean){
         if(isLoading){
             window.setFlags(
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,

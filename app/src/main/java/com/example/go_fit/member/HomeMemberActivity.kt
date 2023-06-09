@@ -89,7 +89,7 @@ class HomeMemberActivity : AppCompatActivity(),NavigationView.OnNavigationItemSe
         getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
     }
 
-    fun getBundle(){
+    private fun getBundle(){
         try{
             mbunlde = intent?.getBundleExtra("profile")!!
             if(mbunlde != null){
@@ -213,7 +213,7 @@ class HomeMemberActivity : AppCompatActivity(),NavigationView.OnNavigationItemSe
         usernameTextView.text = username
     }
 
-    fun setLoading(isLoading:Boolean){
+    private fun setLoading(isLoading:Boolean){
         if(isLoading){
             window.setFlags(
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
