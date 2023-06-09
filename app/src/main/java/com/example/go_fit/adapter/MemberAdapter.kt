@@ -19,6 +19,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.go_fit.DetailsActivity
 import com.example.go_fit.R
+import com.example.go_fit.api.PegawaiApi
 import com.example.go_fit.api.bookingkelasApi
 import com.example.go_fit.api.presensikelasApi
 import com.example.go_fit.model.bookingkelas
@@ -126,112 +127,105 @@ class MemberAdapter (private var itemList: List<member>, context: Context) :
             }
             // Perform the desired action based on the selected status
             if (status.isNotEmpty()) {
-                val StringRequest: StringRequest = object : StringRequest(
-                    Method.GET,
-                    presensikelasApi.GET_BY_USERNAME +vkelas+"/"+ vtanggal +"/"+ vjam,
+                val requestQueue = Volley.newRequestQueue(context)
+                val StringRequest: StringRequest = object :  StringRequest(Method.GET,
+                    presensikelasApi.GET_BY_USERNAME + vkelas + "/" + vtanggal+ "/" + vjam,
                     Response.Listener { response ->
                         val gson = Gson()
                         val jsonObject = JSONObject(response)
-                        val data = jsonObject.optJSONObject("data")
-                        val id = data?.optString("id")
-                        if(id != null){
-                            val StringRequest2:StringRequest = object : StringRequest(Method.PUT, presensikelasApi.UPDATE_URL + id,
-                                Response.Listener { response ->
+                        val data = jsonObject.optJSONArray("data")
 
-                                },Response.ErrorListener { error->
-                                    try{
-                                        val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
-                                        val errors = JSONObject(responseBody)
-                                        Handler(Looper.getMainLooper()).post {
-                                            Toast.makeText(
-                                                context,
-                                                errors.getString("message"),
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                        }
-                                    }catch (e: Exception){
-                                        Toast.makeText(context,e.message, Toast.LENGTH_SHORT).show()
+                        if (data != null && data.length() > 0) {
+                            // Data found, perform update
+                            val presensiData = data.getJSONObject(0)
+                            val id = presensiData.optString("id")
+
+                            if (id != null) {
+                                // Perform PUT request to update the presensi
+                                val stringRequest2: StringRequest = object : StringRequest(
+                                    Method.PUT,
+                                    presensikelasApi.UPDATE_URL + id,
+                                    Response.Listener { response ->
+                                        // Handle successful update
+                                    },
+                                    Response.ErrorListener { error ->
+                                        // Handle error during update
+                                    }
+                                ) {
+                                    @Throws(AuthFailureError::class)
+                                    override fun getHeaders(): Map<String, String> {
+                                        val headers = HashMap<String, String>()
+                                        headers["Accept"] = "application/json"
+                                        return headers
+                                    }
+
+                                    @Throws(AuthFailureError::class)
+                                    override fun getBodyContentType(): String {
+                                        return "application/json"
+                                    }
+
+                                    override fun getBody(): ByteArray {
+                                        val params = HashMap<String, String>()
+                                        params["status"] = status
+                                        val jsonParams = JSONObject(params as Map<*, *>)
+                                        return jsonParams.toString().toByteArray(Charsets.UTF_8)
                                     }
                                 }
-                            ){
+                                requestQueue.add(stringRequest2)
+                            }
+                        } else {
+                            // Data not found, perform creation
+                            val presensiKelas = presensikelas(
+                                item.nama_member,
+                                vkelas,
+                                vtanggal,
+                                vjam,
+                                status
+                            )
+                            val StringRequest: StringRequest = object : StringRequest(
+                                Method.POST,
+                                presensikelasApi.ADD_URL,
+                                Response.Listener { response ->
+                                    val gson = Gson()
+                                    val presensi = gson.fromJson(response, presensiKelas::class.java)
+                                    // Handle successful addition
+                                },
+                                Response.ErrorListener { error ->
+                                    // Handle error during addition
+                                }
+                            ) {
                                 @Throws(AuthFailureError::class)
                                 override fun getHeaders(): Map<String, String> {
-                                    val headers = java.util.HashMap<String, String>()
+                                    val headers = HashMap<String, String>()
                                     headers["Accept"] = "application/json"
                                     return headers
                                 }
 
                                 override fun getParams(): Map<String, String> {
-                                    val params = java.util.HashMap<String, String>()
-                                    params.put("status",status)
-                                    println("param: $params")
+                                    val params = HashMap<String, String>()
+                                    params["nama_kelas"] = vkelas
+                                    params["nama_member"] = item.nama_member
+                                    params["tanggal"] = vtanggal
+                                    params["jam"] = vjam
+                                    params["status"] = status
                                     return params
                                 }
                             }
-                            queue!!.add(StringRequest2)
+                            requestQueue.add(StringRequest)
                         }
-                    }, Response.ErrorListener { error->
-                        val presensiKelas = presensikelas(
-                            item.nama_member,
-                            vkelas,
-                            vtanggal,
-                            vjam,
-                            status
-                        )
-                        val StringRequest:StringRequest = object : StringRequest(Method.POST, presensikelasApi.ADD_URL,
-                            Response.Listener { response ->
-                                val gson = Gson()
-                                val presensi = gson.fromJson(response, presensiKelas::class.java)
-                                if(presensi != null)
-                                    Handler(Looper.getMainLooper()).post {
-                                        Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
-                                    }
-                            },Response.ErrorListener { error->
-                                try{
-                                    val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
-                                    val errors = JSONObject(responseBody)
-                                    Handler(Looper.getMainLooper()).post {
-                                        Toast.makeText(
-                                            context,
-                                            errors.getString("message"),
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                }catch (e: Exception){
-                                    Toast.makeText(context,e.message, Toast.LENGTH_SHORT).show()
-                                }
-                            }
-                        ){
-                            @Throws(AuthFailureError::class)
-                            override fun getHeaders(): Map<String, String> {
-                                val headers = java.util.HashMap<String, String>()
-                                headers["Accept"] = "application/json"
-                                return headers
-                            }
-
-                            override fun getParams(): Map<String, String> {
-                                val params = java.util.HashMap<String, String>()
-                                params.put("nama_kelas",vkelas)
-                                params.put("nama_member",item.nama_member)
-                                params.put("tanggal",vtanggal)
-                                params.put("jam",vjam)
-                                params.put("status",status)
-                                println("param: $params")
-                                return params
-                            }
-                        }
-                        queue!!.add(StringRequest)
+                    },
+                    Response.ErrorListener { error ->
+                        // Handle error during GET request
                     }
-                ){
+                ) {
                     @Throws(AuthFailureError::class)
                     override fun getHeaders(): Map<String, String> {
-                        val headers = HashMap<String,String>()
+                        val headers = HashMap<String, String>()
                         headers["Accept"] = "application/json"
                         return headers
                     }
                 }
-                queue!!.add(StringRequest)
-
+                requestQueue.add(StringRequest)
             }
         }
     }

@@ -23,6 +23,11 @@
         android:title="Class History"/>
 
     <item
+        android:id="@+id/historygym"
+        android:icon="@drawable/history"
+        android:title="Gym History"/>
+
+    <item
         android:id="@+id/transaction"
         android:icon="@drawable/transactionhistory"
         android:title="Transaction History"/>

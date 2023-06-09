@@ -23,11 +23,6 @@
         android:title="Class History"/>
 
     <item
-        android:id="@+id/transaction"
-        android:icon="@drawable/transactionhistory"
-        android:title="History Presensi"/>
-
-    <item
         android:id="@+id/menulogout"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_exit_to_app_24"
