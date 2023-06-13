@@ -22,10 +22,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.go_fit.JadwalHarianActivity
-import com.example.go_fit.MainActivity
-import com.example.go_fit.ProfileMemberActivity
-import com.example.go_fit.R
+import com.example.go_fit.*
 import com.example.go_fit.api.*
 import com.example.go_fit.databinding.ActivityHomeMemberBinding
 import com.google.android.material.navigation.NavigationView
@@ -106,7 +103,7 @@ class HomeMemberActivity : AppCompatActivity(),NavigationView.OnNavigationItemSe
         setLoading(true)
         val StringRequest: StringRequest = object : StringRequest(
             Method.GET,
-            MemberApi.GET_BY_USERNAME + email + "/" + pass + "/" + "get",
+            MemberApi.GET_BY_USERNAME + email + "/" + pass,
             Response.Listener { response ->
                 val gson = Gson()
                 val jsonObject = JSONObject(response)
@@ -160,7 +157,7 @@ class HomeMemberActivity : AppCompatActivity(),NavigationView.OnNavigationItemSe
         setLoading(true)
             val StringRequest: StringRequest = object : StringRequest(
                 Method.GET,
-                MemberApi.GET_BY_USERNAME + email + "/" + pass + "/" + "get",
+                MemberApi.GET_BY_USERNAME + email + "/" + pass + "/",
                 Response.Listener { response ->
                     val gson = Gson()
                     val jsonObject = JSONObject(response)
@@ -249,9 +246,28 @@ class HomeMemberActivity : AppCompatActivity(),NavigationView.OnNavigationItemSe
             intent.putExtra("profile",mBundle)
             startActivity(intent)
         }else if(item.itemId == R.id.menuGym){
-
+            val intent = Intent(this, BookingGymActivity::class.java)
+            val mBundle = Bundle()
+            mBundle.putString("username",vuser)
+            mBundle.putString("password",vpass)
+            intent.putExtra("profile",mBundle)
+            startActivity(intent)
         }else if(item.itemId == R.id.menuKelas){
             val intent = Intent(this, JadwalHarianActivity::class.java)
+            val mBundle = Bundle()
+            mBundle.putString("username",vuser)
+            mBundle.putString("password",vpass)
+            intent.putExtra("profile",mBundle)
+            startActivity(intent)
+        }else if(item.itemId == R.id.historyclass){
+            val intent = Intent(this, HistoryKelasActivity::class.java)
+            val mBundle = Bundle()
+            mBundle.putString("username",vuser)
+            mBundle.putString("password",vpass)
+            intent.putExtra("profile",mBundle)
+            startActivity(intent)
+        }else if(item.itemId == R.id.historygym){
+            val intent = Intent(this, GymHistoryActivity::class.java)
             val mBundle = Bundle()
             mBundle.putString("username",vuser)
             mBundle.putString("password",vpass)

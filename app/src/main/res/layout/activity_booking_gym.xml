@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".member.BookingGymActivity"
+    android:id="@+id/drawer_layout"
     android:background="@drawable/bg5">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -48,6 +49,7 @@
             android:elevation="2dp"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
+            app:startIconDrawable="@drawable/ic_baseline_access_time_24"
             app:layout_constraintTop_toBottomOf="@+id/tanggalbooking">
 
             <AutoCompleteTextView

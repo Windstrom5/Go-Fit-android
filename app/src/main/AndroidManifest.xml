@@ -32,8 +32,30 @@
         android:theme="@style/Theme.GoFit"
         tools:targetApi="31">
         <activity
-            android:name=".InstrukturHistoryActivity"
+            android:name=".HistoryInstrukturActivity"
             android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".PresensiInstrukturActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".izinInstrukturActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".InstrukturHistoryActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -47,7 +69,8 @@
         </activity>
         <activity
             android:name=".HistoryKelasActivity"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -61,7 +84,8 @@
         </activity>
         <activity
             android:name=".member.BookingGymActivity"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

@@ -27,6 +27,7 @@ import com.example.go_fit.adapter.ScheduleAdapter
 import com.example.go_fit.api.InstrukturApi
 import com.example.go_fit.api.bookingkelasApi
 import com.example.go_fit.api.jadwalharianApi
+import com.example.go_fit.api.presensiInstrukturApi
 import com.example.go_fit.databinding.ActivityPresensiKelasBinding
 import com.example.go_fit.model.jadwalharian
 import com.example.go_fit.model.member
@@ -151,7 +152,7 @@ class PresensiKelasActivity : AppCompatActivity(),NavigationView.OnNavigationIte
         setLoading(true)
         val StringRequest: StringRequest = object : StringRequest(
             Method.GET,
-            InstrukturApi.GET_BY_USERNAME + email + "/" + pass + "/" + "get",
+            InstrukturApi.GET_BY_USERNAME + email + "/" + pass,
             Response.Listener { response ->
                 val gson = Gson()
                 val jsonObject = JSONObject(response)
@@ -242,15 +243,150 @@ class PresensiKelasActivity : AppCompatActivity(),NavigationView.OnNavigationIte
             mBundle.putString("password",vpass)
             intent.putExtra("profile",mBundle)
             startActivity(intent)
-        }else if(item.itemId == R.id.menuGym){
+        }else if(item.itemId == R.id.menuIzin){
+            setLoading(true)
+            val StringRequest: StringRequest = object : StringRequest(
+                Method.GET,
+                presensiInstrukturApi.GET_BY_USERNAME + vkelas + "/" + vtanggal + "/" + vjam,
+                Response.Listener { response ->
+                    setLoading(false)
+                    val intent = Intent(this,PresensiKelasActivity::class.java)
+                    val mBundle = Bundle()
+                    mBundle.putString("username",vuser)
+                    mBundle.putString("password",vpass)
+                    mBundle.putString("kelas",vkelas)
+                    mBundle.putString("tanggal",vtanggal)
+                    mBundle.putString("jam",vjam)
+                    intent.putExtra("profile",mBundle)
+                    startActivity(intent)
+                },
+                Response.ErrorListener { error ->
+                    setLoading(false)
+                    try {
+                        val responseBody =
+                            String(error.networkResponse.data, StandardCharsets.UTF_8)
+                        val errors = JSONObject(responseBody)
+                        Toast.makeText(
+                            this@PresensiKelasActivity,
+                            "Anda Belum Presensi Untuk kelas Ini",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } catch (e: Exception) {
+                        Toast.makeText(this@PresensiKelasActivity, e.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            ) {
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): Map<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["Accept"] = "application/json"
+                    return headers
+                }
 
+                override fun getParams(): Map<String, String> {
+                    val params = HashMap<String, String>()
+                    params["username"] = vuser
+                    params["password"] = vpass
+                    return params
+                }
+            }
+            queue!!.add(StringRequest)
         }else if(item.itemId == R.id.menuPresensi){
-            val intent = Intent(this,PresensiKelasActivity::class.java)
-            val mBundle = Bundle()
-            mBundle.putString("username",vuser)
-            mBundle.putString("password",vpass)
-            intent.putExtra("profile",mBundle)
-            startActivity(intent)
+            setLoading(true)
+            val StringRequest: StringRequest = object : StringRequest(
+                Method.GET,
+                presensiInstrukturApi.GET_BY_USERNAME + vkelas + "/" + vtanggal + "/" + vjam,
+                Response.Listener { response ->
+                    setLoading(false)
+                    val intent = Intent(this,PresensiKelasActivity::class.java)
+                    val mBundle = Bundle()
+                    mBundle.putString("username",vuser)
+                    mBundle.putString("password",vpass)
+                    mBundle.putString("kelas",vkelas)
+                    mBundle.putString("tanggal",vtanggal)
+                    mBundle.putString("jam",vjam)
+                    intent.putExtra("profile",mBundle)
+                    startActivity(intent)
+                },
+                Response.ErrorListener { error ->
+                    setLoading(false)
+                    try {
+                        val responseBody =
+                            String(error.networkResponse.data, StandardCharsets.UTF_8)
+                        val errors = JSONObject(responseBody)
+                        Toast.makeText(
+                            this@PresensiKelasActivity,
+                            "Anda Belum Presensi Untuk kelas Ini",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } catch (e: Exception) {
+                        Toast.makeText(this@PresensiKelasActivity, e.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            ) {
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): Map<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["Accept"] = "application/json"
+                    return headers
+                }
+
+                override fun getParams(): Map<String, String> {
+                    val params = HashMap<String, String>()
+                    params["username"] = vuser
+                    params["password"] = vpass
+                    return params
+                }
+            }
+            queue!!.add(StringRequest)
+        }else if(item.itemId == R.id.historyclassInstruktur){
+            setLoading(true)
+            val StringRequest: StringRequest = object : StringRequest(
+                Method.GET,
+                presensiInstrukturApi.GET_BY_USERNAME + vkelas + "/" + vtanggal + "/" + vjam,
+                Response.Listener { response ->
+                    setLoading(false)
+                    val intent = Intent(this,HistoryInstrukturActivity::class.java)
+                    val mBundle = Bundle()
+                    mBundle.putString("username",vuser)
+                    mBundle.putString("password",vpass)
+                    mBundle.putString("kelas",vkelas)
+                    mBundle.putString("tanggal",vtanggal)
+                    mBundle.putString("jam",vjam)
+                    intent.putExtra("profile",mBundle)
+                    startActivity(intent)
+                },
+                Response.ErrorListener { error ->
+                    setLoading(false)
+                    try {
+                        val responseBody =
+                            String(error.networkResponse.data, StandardCharsets.UTF_8)
+                        val errors = JSONObject(responseBody)
+                        Toast.makeText(
+                            this@PresensiKelasActivity,
+                            "Anda Belum Presensi Untuk kelas Ini",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } catch (e: Exception) {
+                        Toast.makeText(this@PresensiKelasActivity, e.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            ) {
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): Map<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["Accept"] = "application/json"
+                    return headers
+                }
+
+                override fun getParams(): Map<String, String> {
+                    val params = HashMap<String, String>()
+                    params["username"] = vuser
+                    params["password"] = vpass
+                    return params
+                }
+            }
+            queue!!.add(StringRequest)
         }
         drawer.closeDrawer(GravityCompat.START)
         return true

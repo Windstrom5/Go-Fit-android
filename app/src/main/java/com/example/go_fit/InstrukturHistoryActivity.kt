@@ -26,6 +26,7 @@ import com.example.go_fit.adapter.HistoryInstrukturAdapter
 import com.example.go_fit.api.InstrukturApi
 import com.example.go_fit.api.MemberApi
 import com.example.go_fit.api.historyinstrukturApi
+import com.example.go_fit.api.presensiInstrukturApi
 import com.example.go_fit.databinding.ActivityHistoryKelasBinding
 import com.example.go_fit.member.BookingGymActivity
 import com.example.go_fit.model.historyinstruktur
@@ -99,40 +100,156 @@ class InstrukturHistoryActivity : AppCompatActivity(), NavigationView.OnNavigati
                 })
                 .show()
         }else if(item.itemId == R.id.menuProfile){
-            val intent = Intent(this, ProfileMemberActivity::class.java)
+            val intent = Intent(this,ProfileMemberActivity::class.java)
             val mBundle = Bundle()
             mBundle.putString("username",vuser)
             mBundle.putString("password",vpass)
             intent.putExtra("profile",mBundle)
             startActivity(intent)
-        }else if(item.itemId == R.id.menuGym){
-            val intent = Intent(this, BookingGymActivity::class.java)
-            val mBundle = Bundle()
-            mBundle.putString("username",vuser)
-            mBundle.putString("password",vpass)
-            intent.putExtra("profile",mBundle)
-            startActivity(intent)
-        }else if(item.itemId == R.id.menuKelas){
-            val intent = Intent(this, JadwalHarianActivity::class.java)
-            val mBundle = Bundle()
-            mBundle.putString("username",vuser)
-            mBundle.putString("password",vpass)
-            intent.putExtra("profile",mBundle)
-            startActivity(intent)
-        }else if(item.itemId == R.id.historygym){
-            val intent = Intent(this, GymHistoryActivity::class.java)
-            val mBundle = Bundle()
-            mBundle.putString("username",vuser)
-            mBundle.putString("password",vpass)
-            intent.putExtra("profile",mBundle)
-            startActivity(intent)
-        }else if(item.itemId == R.id.historyclass){
-            val intent = Intent(this, HistoryKelasActivity::class.java)
-            val mBundle = Bundle()
-            mBundle.putString("username",vuser)
-            mBundle.putString("password",vpass)
-            intent.putExtra("profile",mBundle)
-            startActivity(intent)
+        }else if(item.itemId == R.id.menuIzin){
+            setLoading(true)
+            val StringRequest: StringRequest = object : StringRequest(
+                Method.GET,
+                presensiInstrukturApi.GET_BY_USERNAME + vkelas + "/" + vtanggal + "/" + vjam,
+                Response.Listener { response ->
+                    setLoading(false)
+                    val intent = Intent(this,PresensiKelasActivity::class.java)
+                    val mBundle = Bundle()
+                    mBundle.putString("username",vuser)
+                    mBundle.putString("password",vpass)
+                    mBundle.putString("kelas",vkelas)
+                    mBundle.putString("tanggal",vtanggal)
+                    mBundle.putString("jam",vjam)
+                    intent.putExtra("profile",mBundle)
+                    startActivity(intent)
+                },
+                Response.ErrorListener { error ->
+                    setLoading(false)
+                    try {
+                        val responseBody =
+                            String(error.networkResponse.data, StandardCharsets.UTF_8)
+                        val errors = JSONObject(responseBody)
+                        Toast.makeText(
+                            this@InstrukturHistoryActivity,
+                            "Anda Belum Presensi Untuk kelas Ini",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } catch (e: Exception) {
+                        Toast.makeText(this@InstrukturHistoryActivity, e.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            ) {
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): Map<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["Accept"] = "application/json"
+                    return headers
+                }
+
+                override fun getParams(): Map<String, String> {
+                    val params = HashMap<String, String>()
+                    params["username"] = vuser
+                    params["password"] = vpass
+                    return params
+                }
+            }
+            queue!!.add(StringRequest)
+        }else if(item.itemId == R.id.menuPresensi){
+            setLoading(true)
+            val StringRequest: StringRequest = object : StringRequest(
+                Method.GET,
+                presensiInstrukturApi.GET_BY_USERNAME + vkelas + "/" + vtanggal + "/" + vjam,
+                Response.Listener { response ->
+                    setLoading(false)
+                    val intent = Intent(this,PresensiKelasActivity::class.java)
+                    val mBundle = Bundle()
+                    mBundle.putString("username",vuser)
+                    mBundle.putString("password",vpass)
+                    mBundle.putString("kelas",vkelas)
+                    mBundle.putString("tanggal",vtanggal)
+                    mBundle.putString("jam",vjam)
+                    intent.putExtra("profile",mBundle)
+                    startActivity(intent)
+                },
+                Response.ErrorListener { error ->
+                    setLoading(false)
+                    try {
+                        val responseBody =
+                            String(error.networkResponse.data, StandardCharsets.UTF_8)
+                        val errors = JSONObject(responseBody)
+                        Toast.makeText(
+                            this@InstrukturHistoryActivity,
+                            "Anda Belum Presensi Untuk kelas Ini",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } catch (e: Exception) {
+                        Toast.makeText(this@InstrukturHistoryActivity, e.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            ) {
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): Map<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["Accept"] = "application/json"
+                    return headers
+                }
+
+                override fun getParams(): Map<String, String> {
+                    val params = HashMap<String, String>()
+                    params["username"] = vuser
+                    params["password"] = vpass
+                    return params
+                }
+            }
+            queue!!.add(StringRequest)
+        }else if(item.itemId == R.id.historyclassInstruktur){
+            setLoading(true)
+            val StringRequest: StringRequest = object : StringRequest(
+                Method.GET,
+                presensiInstrukturApi.GET_BY_USERNAME + vkelas + "/" + vtanggal + "/" + vjam,
+                Response.Listener { response ->
+                    setLoading(false)
+                    val intent = Intent(this,HistoryInstrukturActivity::class.java)
+                    val mBundle = Bundle()
+                    mBundle.putString("username",vuser)
+                    mBundle.putString("password",vpass)
+                    mBundle.putString("kelas",vkelas)
+                    mBundle.putString("tanggal",vtanggal)
+                    mBundle.putString("jam",vjam)
+                    intent.putExtra("profile",mBundle)
+                    startActivity(intent)
+                },
+                Response.ErrorListener { error ->
+                    setLoading(false)
+                    try {
+                        val responseBody =
+                            String(error.networkResponse.data, StandardCharsets.UTF_8)
+                        val errors = JSONObject(responseBody)
+                        Toast.makeText(
+                            this@InstrukturHistoryActivity,
+                            "Anda Belum Presensi Untuk kelas Ini",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } catch (e: Exception) {
+                        Toast.makeText(this@InstrukturHistoryActivity, e.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            ) {
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): Map<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["Accept"] = "application/json"
+                    return headers
+                }
+
+                override fun getParams(): Map<String, String> {
+                    val params = HashMap<String, String>()
+                    params["username"] = vuser
+                    params["password"] = vpass
+                    return params
+                }
+            }
+            queue!!.add(StringRequest)
         }
         drawer.closeDrawer(GravityCompat.START)
         return true

@@ -2,7 +2,7 @@ package com.example.go_fit.api
 
 class historyinstrukturApi {
     companion object{
-        val BASE_URL = "http://192.168.1.5/Server_Go_Fit/public/"
+        val BASE_URL = "http://gofit123.xyz/Server_Go_Fit/public/"
 
         val GET_ALL_URL = BASE_URL + "historyinstruktur"
         val GET_BY_USERNAME = BASE_URL + "historyinstruktur/"

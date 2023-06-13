@@ -13,12 +13,12 @@
         android:title="Presensi Kelas"/>
 
     <item
-        android:id="@+id/menuKelas"
-        android:icon="@drawable/kelas"
-        android:title="Jadwal Kelas"/>
+        android:id="@+id/menuIzin"
+        android:icon="@drawable/ic_baseline_sick_24"
+        android:title="Izin"/>
 
     <item
-        android:id="@+id/historyclass"
+        android:id="@+id/historyclassInstruktur"
         android:icon="@drawable/history"
         android:title="Class History"/>
 

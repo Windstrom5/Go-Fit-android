@@ -21,10 +21,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.go_fit.api.InstrukturApi
-import com.example.go_fit.api.MemberApi
-import com.example.go_fit.api.jadwalharianApi
-import com.example.go_fit.api.jadwalumumapi
+import com.example.go_fit.api.*
 import com.example.go_fit.databinding.ActivityHomeInstrukturBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
@@ -111,7 +108,7 @@ class HomeInstrukturActivity : AppCompatActivity(),NavigationView.OnNavigationIt
         setLoading(true)
         val StringRequest: StringRequest = object : StringRequest(
             Method.GET,
-            InstrukturApi.GET_BY_USERNAME + email + "/" + pass + "/" + "get",
+            InstrukturApi.GET_BY_USERNAME + email + "/" + pass,
             Response.Listener { response ->
                 val gson = Gson()
                 val jsonObject = JSONObject(response)
@@ -415,26 +412,55 @@ class HomeInstrukturActivity : AppCompatActivity(),NavigationView.OnNavigationIt
                     }
                 })
                 .show()
-        }else if(item.itemId == R.id.menuProfile){
-            val intent = Intent(this,ProfileMemberActivity::class.java)
-            val mBundle = Bundle()
-            mBundle.putString("username",vuser)
-            mBundle.putString("password",vpass)
-            intent.putExtra("profile",mBundle)
-            startActivity(intent)
-        }else if(item.itemId == R.id.menuGym){
-
         }else if(item.itemId == R.id.menuPresensi){
-            val nama_kelas = textViewClasses.getText().toString()
-            val intent = Intent(this,PresensiKelasActivity::class.java)
-            val mBundle = Bundle()
-            mBundle.putString("username",vuser)
-            mBundle.putString("password",vpass)
-            mBundle.putString("kelas",nama_kelas)
-            mBundle.putString("tanggal",tanggal)
-            mBundle.putString("jam",jam)
-            intent.putExtra("profile",mBundle)
-            startActivity(intent)
+            setLoading(true)
+            val StringRequest: StringRequest = object : StringRequest(
+                Method.GET,
+                presensiInstrukturApi.GET_BY_USERNAME + textViewClasses.getText().toString() + "/" + tanggal + "/" + jam,
+                Response.Listener { response ->
+                    setLoading(false)
+                    val nama_kelas = textViewClasses.getText().toString()
+                    val intent = Intent(this,PresensiKelasActivity::class.java)
+                    val mBundle = Bundle()
+                    mBundle.putString("username",vuser)
+                    mBundle.putString("password",vpass)
+                    mBundle.putString("kelas",nama_kelas)
+                    mBundle.putString("tanggal",tanggal)
+                    mBundle.putString("jam",jam)
+                    intent.putExtra("profile",mBundle)
+                    startActivity(intent)
+                },
+                Response.ErrorListener { error ->
+                    setLoading(false)
+                    try {
+                        val responseBody =
+                            String(error.networkResponse.data, StandardCharsets.UTF_8)
+                        val errors = JSONObject(responseBody)
+                        Toast.makeText(
+                            this@HomeInstrukturActivity,
+                            "Anda Belum Presensi Untuk kelas Ini",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } catch (e: Exception) {
+                        Toast.makeText(this@HomeInstrukturActivity, e.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            ) {
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): Map<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["Accept"] = "application/json"
+                    return headers
+                }
+
+                override fun getParams(): Map<String, String> {
+                    val params = HashMap<String, String>()
+                    params["username"] = vuser
+                    params["password"] = vpass
+                    return params
+                }
+            }
+            queue!!.add(StringRequest)
         }
         drawer.closeDrawer(GravityCompat.START)
         return true
@@ -448,21 +474,5 @@ class HomeInstrukturActivity : AppCompatActivity(),NavigationView.OnNavigationIt
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-    override fun onBackPressed() {
-        Log.d("CDA", "onBackPressed Called")
-        val builder: androidx.appcompat.app.AlertDialog.Builder = androidx.appcompat.app.AlertDialog.Builder(this@HomeInstrukturActivity)
-        builder.setMessage("Want to log out?")
-            .setNegativeButton("No", object : DialogInterface.OnClickListener {
-                override fun onClick(dialogInterface: DialogInterface, i: Int) {
-
-                }
-            })
-            .setPositiveButton("YES", object : DialogInterface.OnClickListener {
-                override fun onClick(dialogInterface: DialogInterface, i: Int) {
-                    startActivity(Intent(this@HomeInstrukturActivity, MainActivity::class.java))
-                }
-            })
-            .show()
     }
 }

@@ -85,7 +85,7 @@ class HistoryKelasActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
         getBundle()
         getName(vuser,vpass)
-        loadMember(vuser)
+        loadMember(vuser,vpass)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -166,12 +166,12 @@ class HistoryKelasActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         }
     }
 
-    private fun loadMember(nama_member : String) {
+    private fun loadMember(nama_member : String,password : String) {
         // Show loading spinner
         setLoading(true)
         val StringRequest: StringRequest = object : StringRequest(
             Method.GET,
-            MemberApi.GET_BY_USERNAME + nama_member,
+            MemberApi.GET_BY_USERNAME + nama_member +"/"+password,
             Response.Listener { response ->
                 val gson = Gson()
                 val jsonObject = JSONObject(response)
@@ -265,7 +265,7 @@ class HistoryKelasActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         setLoading(true)
         val StringRequest: StringRequest = object : StringRequest(
             Method.GET,
-            MemberApi.GET_BY_USERNAME + email + "/" + pass + "/" + "get",
+            MemberApi.GET_BY_USERNAME + email + "/" + pass,
             Response.Listener { response ->
                 val gson = Gson()
                 val jsonObject = JSONObject(response)

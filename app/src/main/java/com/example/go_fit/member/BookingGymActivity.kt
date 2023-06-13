@@ -135,7 +135,7 @@ class BookingGymActivity : AppCompatActivity(),NavigationView.OnNavigationItemSe
         setLoading(true)
         val StringRequest: StringRequest = object : StringRequest(
             Method.GET,
-            MemberApi.GET_BY_USERNAME + email + "/" + pass + "/" + "get",
+            MemberApi.GET_BY_USERNAME + email + "/" + pass,
             Response.Listener { response ->
                 val gson = Gson()
                 val jsonObject = JSONObject(response)
@@ -243,7 +243,7 @@ class BookingGymActivity : AppCompatActivity(),NavigationView.OnNavigationItemSe
         setLoading(true)
         val StringRequest: StringRequest = object : StringRequest(
             Method.GET,
-            MemberApi.GET_BY_USERNAME + email + "/" + pass + "/" + "get",
+            MemberApi.GET_BY_USERNAME + email + "/" + pass,
             Response.Listener { response ->
                 val gson = Gson()
                 val jsonObject = JSONObject(response)
