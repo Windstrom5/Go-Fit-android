@@ -171,6 +171,7 @@ class JadwalHarianActivity : AppCompatActivity(),NavigationView.OnNavigationItem
     private fun loadSchedules(day: String) {
         // Show loading spinner
         setLoading(true)
+        println("status: ${day}")
         val StringRequest: StringRequest = object : StringRequest(
             Method.GET,
             jadwalharianApi.GET_BY_USERNAME +"apcb/"+ day,

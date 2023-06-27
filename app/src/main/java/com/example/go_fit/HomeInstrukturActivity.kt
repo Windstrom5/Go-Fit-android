@@ -116,7 +116,7 @@ class HomeInstrukturActivity : AppCompatActivity(),NavigationView.OnNavigationIt
 
                 // Check if role is Manajer Operasional
                 val data = jsonObject.optJSONObject("data")
-                val nama = data?.optString("nama_member")
+                val nama = data?.optString("nama")
                 println("nama: $nama")
                 nama?.let { setUsername(navigationView, it) }
             },
@@ -170,7 +170,7 @@ class HomeInstrukturActivity : AppCompatActivity(),NavigationView.OnNavigationIt
                 val gson = Gson()
                 val jsonObject = JSONObject(response)
                 val data = jsonObject.optJSONObject("data")
-                val nama = data?.optString("email")
+                val nama = data?.optString("nama")
                 if (nama != null) {
                     getjumlahKelas(nama)
                     setnextKelas(nama)

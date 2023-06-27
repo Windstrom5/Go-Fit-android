@@ -80,6 +80,7 @@ class BookingGymActivity : AppCompatActivity(),NavigationView.OnNavigationItemSe
         getBundle()
         book = binding.button2
         waktu = binding.edWaktu
+        navigationView = findViewById(R.id.nav_view)
         loading = findViewById(R.id.layout_loading)
         queue= Volley.newRequestQueue(this)
         tanggal= binding.tanggalbooking
@@ -104,7 +105,7 @@ class BookingGymActivity : AppCompatActivity(),NavigationView.OnNavigationItemSe
     private fun setExposeDropDownMenu() {
         val adapterList: ArrayAdapter<String> =
             ArrayAdapter<String>(this, R.layout.item_list, JAM_LIST)
-        waktu.setAdapter(adapterList)
+        ed_waktu.setAdapter(adapterList)
     }
 
     private fun getBundle(){

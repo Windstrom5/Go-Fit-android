@@ -51,6 +51,7 @@ class HomePegawaiActivity : AppCompatActivity(),NavigationView.OnNavigationItemS
     private lateinit var value2 : TextView
     private lateinit var loading : LinearLayout
     private lateinit var toolbar: Toolbar
+    private lateinit var namaText : TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomePegawaiBinding.inflate(layoutInflater)
@@ -59,6 +60,7 @@ class HomePegawaiActivity : AppCompatActivity(),NavigationView.OnNavigationItemS
         loading = findViewById(R.id.layout_loading)
         toolbar = findViewById(R.id.toolbar)
         navigationView = findViewById(R.id.nav_view)
+        namaText = binding.textView2
         getBundle()
         setValue(vuser,vpass)
         getName(vuser,vpass)
@@ -115,10 +117,10 @@ class HomePegawaiActivity : AppCompatActivity(),NavigationView.OnNavigationItemS
                 val gson = Gson()
                 val jsonObject = JSONObject(response)
                 setLoading(false)
-
                 // Check if role is Manajer Operasional
                 val data = jsonObject.optJSONObject("data")
-                val nama = data?.optString("nama_member")
+                val nama = data?.optString("nama_pegawai")
+                namaText.setText(nama)
                 println("nama: $nama")
                 nama?.let { setUsername(navigationView, it) }
             },
